@@ -29,6 +29,7 @@ struct arguments
     char *path;
     char *database;
     char *topic;
+    char *leading;
 
     char *from_t;
     char *to_t;
@@ -196,6 +197,7 @@ static struct argp_option options[] = {
 {"path",                'a',    "PATH",             0,      "Path.",            2},
 {"database",            'b',    "DATABASE",         0,      "Database.",        2},
 {"topic",               'c',    "TOPIC",            0,      "Topic.",           2},
+{"leading",             'd',    "LEADING",          0,      "Leading data, coded in base64, sent once on connection.",          2},
 
 {0,                     0,      0,                  0,      "Search conditions", 4},
 {"from-t",              1,      "TIME",             0,      "From time.",       4},
@@ -257,6 +259,9 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
         break;
     case 'c':
         arguments->topic= arg;
+        break;
+    case 'd':
+        arguments->leading= arg;
         break;
 
     case 1: // from_t
@@ -425,6 +430,9 @@ int main(int argc, char *argv[])
         }
         if(arguments.topic) {
             json_object_set_new(kw_emu_device, "Emu_device.topic", json_string(arguments.topic));
+        }
+        if(arguments.leading) {
+            json_object_set_new(kw_emu_device, "Emu_device.leading", json_string(arguments.leading));
         }
 
         if(arguments.from_t) {

@@ -77,6 +77,7 @@ SDATA (ASN_OCTET_STR,   "url",                  SDF_WR|SDF_PERSIST,         0,  
 SDATA (ASN_OCTET_STR,   "path",                 SDF_WR|SDF_PERSIST,         0,   "Path of database."                 ),
 SDATA (ASN_OCTET_STR,   "database",             SDF_WR|SDF_PERSIST,         0,   "Database Name."                    ),
 SDATA (ASN_OCTET_STR,   "topic",                SDF_WR|SDF_PERSIST,         0,   "Database Topic."                   ),
+SDATA (ASN_OCTET_STR,   "leading",              SDF_WR|SDF_PERSIST,         0,   "Leading data."                   ),
 SDATA (ASN_OCTET_STR,   "from_t",               SDF_WR|SDF_PERSIST,         0,   "From time."                        ),
 SDATA (ASN_OCTET_STR,   "to_t",                 SDF_WR|SDF_PERSIST,         0,   "To time."                          ),
 SDATA (ASN_OCTET_STR,   "from_rowid",           SDF_WR|SDF_PERSIST,         0,   "From rowid."                       ),
@@ -825,12 +826,38 @@ PRIVATE int ac_on_open(hgobj gobj, const char *event, json_t *kw, hgobj src)
     if(gobj_trace_level(gobj) & TRACE_INFO) {
         info_msg0("Connected");
     }
+
     if(gobj_is_playing(gobj)) {
+        const char *frame = gobj_read_str_attr(gobj, "leading");
+        if(!empty_string(frame)) {
+            /*
+             *  Envia el mensaje al destino
+             */
+            if(gobj_trace_level(gobj) & TRACE_INFO) {
+                info_msg0("Sending: %s", frame);
+            }
+
+            size_t len = strlen(frame);
+            len = b64_decode(frame, (u_char *)bin, sizeof(bin));
+            frame = bin;
+            GBUFFER *gbuf = gbuf_create(len, len, 0, 0);
+            gbuf_append(gbuf, (void *)frame, len);
+
+            json_t *kw_tx = json_pack("{s:I}",
+                "gbuffer", (json_int_t)(size_t)gbuf
+            );
+            gobj_send_event(src, "EV_SEND_MESSAGE", kw_tx, gobj);
+
+            (*priv->ptxMsgs)++;
+            gobj_incr_qs(QS_TXMSGS, 1);
+        }
+
         if(emulate_gps_msgs(gobj)>0) {
             // WARNING realmente estamos considerando una única conexión (channel)
             set_timeout_periodic(priv->timer_interval, priv->interval);
         }
     }
+
 
     KW_DECREF(kw);
     return 0;
