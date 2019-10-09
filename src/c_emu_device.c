@@ -580,7 +580,7 @@ PRIVATE json_t *cmd_read_parameters(hgobj gobj, const char *cmd, json_t *kw, hgo
 PRIVATE BOOL list_db_cb(
     void *user_data,
     wd_found_type type,     // type found
-    const char *fullpath,   // directory+filename found
+    char *fullpath,         // directory+filename found
     const char *directory,  // directory of found filename
     char *name,             // dname[255]
     int level,              // level of tree where file found
@@ -616,7 +616,7 @@ PRIVATE int list_databases(const char *path)
 PRIVATE BOOL list_topic_cb(
     void *user_data,
     wd_found_type type,     // type found
-    const char *fullpath,   // directory+filename found
+    char *fullpath,         // directory+filename found
     const char *directory,  // directory of found filename
     char *name,             // dname[255]
     int level,              // level of tree where file found
