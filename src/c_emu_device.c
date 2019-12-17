@@ -704,7 +704,7 @@ GBUFFER *get_next_frame(hgobj gobj, BOOL *empty_frame)
                     json_decref(jn_record);
                     return 0;
                 }
-                len = b64_decode(frame, (u_char *)bin, sizeof(bin));
+                len = b64_decode(frame, (uint8_t *)bin, sizeof(bin));
                 frame = bin;
                 GBUFFER *gbuf = gbuf_create(len, len, 0, 0);
                 gbuf_append(gbuf, (void *)frame, len);
@@ -838,7 +838,7 @@ PRIVATE int ac_on_open(hgobj gobj, const char *event, json_t *kw, hgobj src)
             }
 
             size_t len = strlen(frame);
-            len = b64_decode(frame, (u_char *)bin, sizeof(bin));
+            len = b64_decode(frame, (uint8_t *)bin, sizeof(bin));
             frame = bin;
             GBUFFER *gbuf = gbuf_create(len, len, 0, 0);
             gbuf_append(gbuf, (void *)frame, len);
