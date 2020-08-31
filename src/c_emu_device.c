@@ -147,7 +147,7 @@ PRIVATE void mt_create(hgobj gobj)
     priv->ptxMsgs = gobj_danger_attr_ptr(gobj, "txMsgs");
     priv->prxMsgs = gobj_danger_attr_ptr(gobj, "rxMsgs");
 
-    priv->timer_interval = gobj_create("interval", GCLASS_TIMER, 0, gobj);
+    priv->timer_interval = gobj_create("", GCLASS_TIMER, 0, gobj);
     gobj_write_str_attr(priv->timer_interval, "timeout_event_name", "EV_TICK2SEND");
 
     /*
