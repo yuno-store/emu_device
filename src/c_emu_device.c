@@ -957,7 +957,7 @@ PRIVATE LMETHOD lmt[] = {
  *---------------------------------------------*/
 PRIVATE GCLASS _gclass = {
     0,  // base
-    GCLASS_EMU_DEVICE_NAME,      // CHANGE WITH each gclass
+    GCLASS_EMU_DEVICE_NAME,
     &fsm,
     {
         mt_create,
