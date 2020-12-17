@@ -569,8 +569,9 @@ int main(int argc, char *argv[])
         0,
         0,
         0,
-        command_parser,
-        stats_parser,
+        0,
+        0,
+        0,
         0,
         0,
         0
