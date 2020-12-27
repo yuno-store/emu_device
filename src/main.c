@@ -79,8 +79,8 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state);
 PRIVATE char fixed_config[]= "\
 {                                                                   \n\
     'yuno': {                                                       \n\
-        'yuno_role': '"ROLE_EMU_DEVICE"',                         \n\
-        'classifiers': ['yuneta', 'utility']                        \n\
+        'yuno_role': '"ROLE_EMU_DEVICE"',                           \n\
+        'tags': ['yuneta', 'utils']                                 \n\
     }                                                               \n\
 }                                                                   \n\
 ";
