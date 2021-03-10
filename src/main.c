@@ -69,7 +69,7 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state);
 #define APP_NAME        "emu_device"
 #define APP_DOC         "Emulator of device gates"
 
-#define APP_VERSION     "4.10.11"
+#define APP_VERSION     "4.10.12"
 #define APP_SUPPORT     "<niyamaka@yuneta.io>"
 #define APP_DATETIME    __DATE__ " " __TIME__
 
