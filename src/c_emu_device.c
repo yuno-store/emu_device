@@ -167,7 +167,7 @@ PRIVATE void mt_writing(hgobj gobj, const char *path)
 
     IF_EQ_SET_PRIV(interval,         gobj_read_uint32_attr)
         if(gobj_find_service("agent_client", FALSE)) {
-            gobj_save_persistent_attrs(gobj);
+            gobj_save_persistent_attrs(gobj, 0);
         }
         if(gobj_is_playing(gobj)) {
             set_timeout_periodic(priv->timer_interval, priv->interval);
@@ -175,7 +175,7 @@ PRIVATE void mt_writing(hgobj gobj, const char *path)
 
     ELIF_EQ_SET_PRIV(window,        gobj_read_uint32_attr)
         if(gobj_find_service("agent_client", FALSE)) {
-            gobj_save_persistent_attrs(gobj);
+            gobj_save_persistent_attrs(gobj, 0);
         }
     END_EQ_SET_PRIV()
 }
@@ -462,7 +462,7 @@ PRIVATE int mt_pause(hgobj gobj)
     PRIVATE_DATA *priv = gobj_priv_data(gobj);
 
     if(gobj_find_service("agent_client", FALSE)) {
-        gobj_save_persistent_attrs(gobj);
+        gobj_save_persistent_attrs(gobj, 0);
     }
     clear_timeout(priv->timer_interval);
     gobj_stop(priv->timer_interval);
@@ -511,7 +511,7 @@ PRIVATE json_t *cmd_write_interval(hgobj gobj, const char *cmd, json_t *kw, hgob
     PRIVATE_DATA *priv = gobj_priv_data(gobj);
     const char *interval_ = kw_get_str(kw, "interval", "1000", 0);
     gobj_write_uint32_attr(gobj, "interval", atoi(interval_));
-    gobj_save_persistent_attrs(gobj);
+    gobj_save_persistent_attrs(gobj, 0);
 
     return msg_iev_build_webix(
         gobj,
@@ -531,7 +531,7 @@ PRIVATE json_t *cmd_write_window(hgobj gobj, const char *cmd, json_t *kw, hgobj 
     PRIVATE_DATA *priv = gobj_priv_data(gobj);
     const char *window_ = kw_get_str(kw, "window", "1", 0);
     gobj_write_uint32_attr(gobj, "window", atoi(window_));
-    gobj_save_persistent_attrs(gobj);
+    gobj_save_persistent_attrs(gobj, 0);
 
     return msg_iev_build_webix(
         gobj,
