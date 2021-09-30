@@ -69,6 +69,7 @@ TARGET_LINK_LIBRARIES(emu_device
     pthread dl  # used by libuv
     lzma        # used by libunwind
     uuid
+    m
 )
 
 ##############################################
