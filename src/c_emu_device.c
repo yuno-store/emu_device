@@ -516,7 +516,7 @@ PRIVATE json_t *cmd_write_interval(hgobj gobj, const char *cmd, json_t *kw, hgob
     return msg_iev_build_webix(
         gobj,
         0,
-        json_local_sprintf("interval: %d", priv->interval),
+        json_sprintf("interval: %d", priv->interval),
         0,
         0,
         kw  // owned
@@ -536,7 +536,7 @@ PRIVATE json_t *cmd_write_window(hgobj gobj, const char *cmd, json_t *kw, hgobj 
     return msg_iev_build_webix(
         gobj,
         0,
-        json_local_sprintf("window: %d", priv->window),
+        json_sprintf("window: %d", priv->window),
         0,
         0,
         kw  // owned
@@ -553,7 +553,7 @@ PRIVATE json_t *cmd_read_parameters(hgobj gobj, const char *cmd, json_t *kw, hgo
     return msg_iev_build_webix(
         gobj,
         0,
-        json_local_sprintf("window: %d\ninterval: %d\nlast_id: %"PRIu64"",
+        json_sprintf("window: %d\ninterval: %d\nlast_id: %"PRIu64"",
             priv->window,
             priv->interval,
             priv->last_id
