@@ -70,6 +70,7 @@ TARGET_LINK_LIBRARIES(emu_device
     lzma        # used by libunwind
     uuid
     m
+    util
 )
 
 ##############################################
