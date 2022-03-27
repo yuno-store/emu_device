@@ -768,7 +768,7 @@ PRIVATE int send_gps_msgs(hgobj gobj, hgobj channel_gobj)
         gobj_incr_qs(QS_TXMSGS, 1);
     }
 
-    return 1;
+    return 0;
 }
 
 /***************************************************************************
